@@ -1,7 +1,12 @@
+using TextAnalyzer.Application.Interfaces;
+using TextAnalyzer.Application.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ITextAnalyzerService, TextAnalyzerService>();
 
 var app = builder.Build();
 

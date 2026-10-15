@@ -6,6 +6,12 @@ namespace TextAnalyzer.Tests.Application.Services;
 
 public class TextAnalyzerServiceTest
 {
+    private readonly TextAnalyzerService _service;
+
+    public TextAnalyzerServiceTest()
+    {
+        _service = new TextAnalyzerService();
+    }
 
     public static TheoryData<string, LetterData[]> MockLetterData => new()
     {
@@ -32,15 +38,9 @@ public class TextAnalyzerServiceTest
     [InlineData("#@1")]
     public void ProcessText_ReturnsEmptyResult_WhenInputIsNotALetter(string textInput)
     {
-        //Arrange
-        var textAnalyzerService = new TextAnalyzerService();
+        var result = _service.ProcessText(textInput);
 
-
-        //Act
-        var textAnalyzerResponse = textAnalyzerService.ProcessText(textInput);
-
-        //Assert
-        Assert.Empty(textAnalyzerResponse.LetterData);
+        Assert.Empty(result.LetterData);
 
     }
 
@@ -49,18 +49,11 @@ public class TextAnalyzerServiceTest
     [MemberData(nameof(MockLetterDataWithNumbersAndSpecialCharacters))]
     public void ProcessText_IgnoresSpecialCharaterAndNumbers(string textInput, LetterData[] letterData)
     {
-        //Arrange
-        var textAnalyzerService = new TextAnalyzerService();
-
-        //Act
-        var textAnalyzerResponse = textAnalyzerService.ProcessText(textInput);
-
-
-        //Assert
+        var result = _service.ProcessText(textInput);
 
         foreach (var letter in letterData)
         {
-            var found = Assert.Single(textAnalyzerResponse.LetterData, l => l.Letter == letter.Letter);
+            var found = Assert.Single(result.LetterData, l => l.Letter == letter.Letter);
             Assert.Equal(letter.LetterCount, found.LetterCount);
             Assert.Equal(letter.LetterPercentage, found.LetterPercentage, 2);
         }
@@ -71,18 +64,11 @@ public class TextAnalyzerServiceTest
     [MemberData(nameof(MockLetterData))]
     public void ProcessText_ReturnsCorrectLetterCountAndPercentage_BasedOnInputSize(string textInput, LetterData[] letterData)
     {
-        //Arrange
-        var textAnalyzerService = new TextAnalyzerService();
-
-        //Act
-        var textAnalyzerResponse = textAnalyzerService.ProcessText(textInput);
-
-
-        //Assert
+        var result = _service.ProcessText(textInput);
 
         foreach (var letter in letterData)
         {
-            var found = Assert.Single(textAnalyzerResponse.LetterData, l => l.Letter == letter.Letter);
+            var found = Assert.Single(result.LetterData, l => l.Letter == letter.Letter);
             Assert.Equal(letter.LetterCount, found.LetterCount);
             Assert.Equal(letter.LetterPercentage, found.LetterPercentage, 2);
         }
@@ -92,16 +78,9 @@ public class TextAnalyzerServiceTest
     [Fact]
     public void ProcessText_IgnoresCase()
     {
-        //Arrange
-        var textAnalyzerService = new TextAnalyzerService();
+        var result = _service.ProcessText("aA");
 
-        //Act
-        var textAnalyzerResponse = textAnalyzerService.ProcessText("aA");
-
-
-        //Assert
-
-        var letter = Assert.Single(textAnalyzerResponse.LetterData);
+        var letter = Assert.Single(result.LetterData);
         Assert.Equal('a', letter.Letter);
         Assert.Equal(2, letter.LetterCount);
         Assert.Equal(100, letter.LetterPercentage);
@@ -110,16 +89,9 @@ public class TextAnalyzerServiceTest
     [Fact]
     public void ProcessText_IgnoresWhiteSpace()
     {
-        //Arrange
-        var textAnalyzerService = new TextAnalyzerService();
+        var result = _service.ProcessText("a  ");
 
-        //Act
-        var textAnalyzerResponse = textAnalyzerService.ProcessText("a  ");
-
-
-        //Assert
-
-        var letter = Assert.Single(textAnalyzerResponse.LetterData);
+        var letter = Assert.Single(result.LetterData);
         Assert.Equal('a', letter.Letter);
         Assert.Equal(1, letter.LetterCount);
         Assert.Equal(100, letter.LetterPercentage);
@@ -128,15 +100,9 @@ public class TextAnalyzerServiceTest
     [Fact]
     public void ProcessText_AddsUpTo100Percent()
     {
-        //Arrange
-        var textAnalyzerService = new TextAnalyzerService();
+        var result = _service.ProcessText("abc");
 
-        //Act
-        var textAnalyzerResponse = textAnalyzerService.ProcessText("abc");
-
-
-        //Assert
-        Assert.Equal(100, textAnalyzerResponse.LetterData.Sum(x => x.LetterPercentage), 2);
+        Assert.Equal(100, result.LetterData.Sum(x => x.LetterPercentage), 2);
     }
 
 

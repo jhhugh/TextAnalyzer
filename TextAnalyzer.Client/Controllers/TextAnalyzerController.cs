@@ -1,13 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
+using TextAnalyzer.Application.Interfaces;
+using TextAnalyzer.Client.Models;
 
 namespace TextAnalyzer.Client.Controllers
 {
-    public class TextAnalyzerController : Controller
+    [ApiController]
+    [Route("api/analysis")]
+    public class TextAnalyzerController(ITextAnalyzerService textAnalyzerService) : ControllerBase
     {
-        // GET: TextAnalyzerController
-        public ActionResult Index()
+        private readonly ITextAnalyzerService _textAnalyzerService = textAnalyzerService;
+
+        [HttpPost]
+        public ActionResult<TextAnalyzerResponse> AnalyzeText(TextAnalyzerRequest request)
         {
-            return View();
+            throw new NotImplementedException();
         }
 
     }

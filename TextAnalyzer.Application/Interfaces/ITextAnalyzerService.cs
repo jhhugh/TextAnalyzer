@@ -4,6 +4,6 @@ namespace TextAnalyzer.Application.Interfaces;
 
 public interface ITextAnalyzerService
 {
-	public TextAnalyzerResponse ProcessText(string textInput);
+	public TextAnalyzerResult ProcessText(string textInput);
 
 }
