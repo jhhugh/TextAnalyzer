@@ -1,8 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<h1>Text Analyzer</h1>
+<p>
+    Type or Paste letters and click submit to analyze the text.
+    The analyzer will display the count per letter and its percentage in the text.
+    Numbers, special characters, whitespaces are ignored.
+</p>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<textarea id="text-input"></textarea><br>
+<button id="submit-btn" disabled>Analyze</button>
+<div id="status"></div>
+<div id="results"></div>
