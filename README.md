@@ -1,11 +1,11 @@
 
-# Text Analyser
+# Text Analyzer
 
 ASP.NET MVC app that counts letters in submitted text and shows each letter’s percentage of the total.
 
 ## Installation
 
-1. Install the [.NET 10 SDK].
+1. Install the .NET 10 SDK.
 2. Clone or unzip the project.
 3. Restore and build:
    ```bash
