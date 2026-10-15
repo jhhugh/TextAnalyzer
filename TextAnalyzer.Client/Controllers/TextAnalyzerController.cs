@@ -13,7 +13,11 @@ namespace TextAnalyzer.Client.Controllers
         [HttpPost]
         public ActionResult<TextAnalyzerResponse> AnalyzeText(TextAnalyzerRequest request)
         {
-            throw new NotImplementedException();
+            if(request is null || request.TextInput is null)
+            {
+                return BadRequest();
+            }
+            return Ok(TextAnalyzerResponse.From(_textAnalyzerService.ProcessText(request.TextInput)));
         }
 
     }
