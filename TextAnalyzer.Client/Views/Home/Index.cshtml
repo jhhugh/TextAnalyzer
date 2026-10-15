@@ -1,11 +1,36 @@
-﻿<h1>Text Analyzer</h1>
-<p>
-    Type or Paste letters and click submit to analyze the text.
-    The analyzer will display the count per letter and its percentage in the text.
-    Numbers, special characters, whitespaces are ignored.
-</p>
+﻿<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-3">Text Analyzer</h1>
+            <p class="text-secondary mb-4">
+                Type or Paste letters and click submit to analyze the text.
+                The analyzer will display the count per letter and its percentage in the text.
+                Numbers, special characters, and whitespace are ignored.
+            </p>
 
-<textarea id="text-input"></textarea><br>
-<button id="submit-btn" disabled>Analyze</button>
-<div id="status"></div>
-<div id="results"></div>
+            <div class="mb-3">
+                <textarea id="text-input" class="form-control" rows="8"></textarea>
+            </div>
+            <button id="submit-btn" class="btn btn-primary" disabled>Analyze</button>
+
+            <div id="status" class="mt-3 text-secondary"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="results-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5">Results</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="results"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
